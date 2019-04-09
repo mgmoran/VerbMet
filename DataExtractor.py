@@ -22,7 +22,7 @@ docs = set(list([instance.fileid for instance in instances]))
 instancedict = {}
 for doc in docs:
     instancedict[doc] = [instance for instance in instances if instance.fileid==doc]
-print(instancedict)
+
 #Create a dictionary of each sentence in the document corresponding to an instance, for each doc
 #docs are keys, values are lists of sentences. Sentences are tokenized.
 docdict = defaultdict(list)
