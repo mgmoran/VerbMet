@@ -11,6 +11,7 @@
 
 import nltk
 from nltk.corpus import treebank,propbank
+from collections import defaultdict
 
 # Grabbing the first 9000 propbank instances (these 9000 instances map to 186 documents total)
 instances = propbank.instances()[:9000]
@@ -20,11 +21,10 @@ docs = set(list([instance.fileid for instance in instances]))
 instancedict = {}
 for doc in docs:
 	instancedict[doc] = [instance for instance in instances if instance.fileid==doc]
-
+print(instancedict)
 #Create a dictionary of each sentence in the document corresponding to an instance, for each doc
 #docs are keys, values are lists of sentences
-docdict = {}
+docdict = defaultdict(list)
 for doc in instancedict:
-	sentlist = [instance.sentnum for instance in instancedict[doc]]
-	docdict[doc] = set([treebank.sents(doc)[sentid] for sentid in sentlist])
-
+	sentlist = set([instance.sentnum for instance in instancedict[doc]])
+	docdict[doc] = [treebank.sents(doc)[sentid] for sentid in sentlist]
