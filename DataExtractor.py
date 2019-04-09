@@ -7,6 +7,7 @@
 ##Stats: 
 #9000 "instances" (individual verbs annotated with their arguments)
 #186 total documents represented among all the instances
+#3469 total sentences
 
 
 import nltk
@@ -20,11 +21,11 @@ docs = set(list([instance.fileid for instance in instances]))
 #Filling a dictionary of WSJ documents (keys) mapped to all the propbank instances contained in each doc (values)
 instancedict = {}
 for doc in docs:
-	instancedict[doc] = [instance for instance in instances if instance.fileid==doc]
+    instancedict[doc] = [instance for instance in instances if instance.fileid==doc]
 print(instancedict)
 #Create a dictionary of each sentence in the document corresponding to an instance, for each doc
 #docs are keys, values are lists of sentences. Sentences are tokenized.
 docdict = defaultdict(list)
 for doc in instancedict:
-	sentlist = set([instance.sentnum for instance in instancedict[doc]])
-	docdict[doc] = [treebank.sents(doc)[sentid] for sentid in sentlist]
+    sentlist = set([instance.sentnum for instance in instancedict[doc]])
+    docdict[doc] = [treebank.sents(doc)[sentid] for sentid in sentlist]
