@@ -10,6 +10,7 @@
 
 
 import nltk
+import csv
 from nltk.corpus import treebank,propbank
 from collections import defaultdict
 
@@ -20,15 +21,15 @@ docs = set(list([instance.fileid for instance in instances]))
 #A dictionary that maps WSJ documents (keys) to all propbank instances contained in each doc (values)
 instancedict = defaultdict(list)
 for doc in docs:
-    instancedict[doc] = [instance for instance in instances if instance.fileid == doc]
+	instancedict[doc] = [instance for instance in instances if instance.fileid == doc]
 
 #A dictionary of WSJ docs mapped to every sentence in that doc associated to a PB instance.
 #Each sentence is then mapped to a list of its PB instances.
 sentdict = defaultdict(lambda: defaultdict(list))
 for doc in instancedict:
-        sentlist = set([instance.sentnum for instance in instancedict[doc]])
-        for num in sentlist:
-            sentdict[doc][num] = [instance for instance in instancedict[doc] if instance.sentnum==num]
+		sentlist = set([instance.sentnum for instance in instancedict[doc]])
+		for num in sentlist:
+			sentdict[doc][num] = [instance for instance in instancedict[doc] if instance.sentnum==num]
 
 #For simplicity's sake, I filter out all sentences that have more than one
 #PB instance.
@@ -36,5 +37,13 @@ for doc in instancedict:
 #Sentences are tokenized.
 docdict = defaultdict(list)
 for doc in sentdict:
-    sentlist = set([instance.sentnum for instance in instancedict[doc]])
-    docdict[doc] = [treebank.sents(doc)[sentid] for sentid in sentdict[doc] if len(sentdict[doc][sentid])==1]
+	sentlist = set([instance.sentnum for instance in instancedict[doc]])
+	docdict[doc] = [(sentid," ".join(treebank.sents(doc)[sentid])) for sentid in sentdict[doc] if len(sentdict[doc][sentid])==1]
+with open('VerbMetData.csv', 'a') as csvFile:
+	writer = csv.writer(csvFile)
+	for doc in docdict:
+		for sent in docdict[doc]:
+			row = [doc,sent[0],sent[1]]
+			writer.writerow(row)
+	csvFile.close()
+
