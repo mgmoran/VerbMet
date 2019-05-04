@@ -8,12 +8,19 @@ from nltk.metrics.agreement import AnnotationTask
 from nltk.metrics import interval_distance, binary_distance, masi_distance
 
 def XMLParse(a1,a2,a3):
+        literal = 0
+        nonliteral = 0
         exceptions = ["am", "are", "is", "were", "was", "been", "be", "being", "has", "have", "had", "do", "done", "compared", "aware","used","said", "overlap", "noted","think", "Performing","go","seems","uses","says","raising","appear","received","boost","reciting","reprove","responded","leave"]
         ### Annotator 1
         annotator1 = etree.parse(a1)
         ### all tags
         tags1 = list(annotator1.iter())
         verbs1 = [e for e in tags1 if e.tag=='VERB']
+        for verb in verbs1:
+            if verb.attrib['type']=='Literal':
+                literal+=1
+            else:
+                nonliteral +=1
         args1 = [e for e in tags1 if e.tag=='ARG']
         mm1 = [e for e in tags1 if e.tag=='MISMATCH']
         with open('Annotator1.csv', 'w') as f:
@@ -34,6 +41,11 @@ def XMLParse(a1,a2,a3):
         ### all tags
         tags2 = list(annotator2.iter())
         verbs2 = [tag for tag in tags2 if tag.tag == 'VERB']
+        for verb in verbs2:
+            if verb.attrib['type'] == 'Literal':
+                literal += 1
+            else:
+                nonliteral += 1
         args2 = [tag for tag in tags2 if tag.tag == 'ARG']
         mm2 = [tag for tag in tags2 if tag.tag == 'MISMATCH']
         with open('Annotator2.csv', 'w') as f:
@@ -55,6 +67,11 @@ def XMLParse(a1,a2,a3):
         ### all tags
         tags3 = list(annotator3.iter())
         verbs3 = [tag for tag in tags3 if tag.tag == 'VERB']
+        for verb in verbs3:
+            if verb.attrib['type'] == 'Literal':
+                literal += 1
+            else:
+                nonliteral += 1
         args3 = [tag for tag in tags3 if tag.tag == 'ARG']
         mm3 = [tag for tag in tags3 if tag.tag == 'MISMATCH']
         with open('Annotator3.csv', 'w') as f:
@@ -72,14 +89,7 @@ def XMLParse(a1,a2,a3):
         mismatches3 = [e for e in mismatches3 if e.attrib['toID']  in verbids3]
 
 
-        ## Creates a csv, "IAACalculations.csv"
-        ##Column 1: Verb name
-        ##Column 2: Annotator 1
-        ##Column 3: Annotator 2
-        ##Column 4: Annotator 3
-        ##For each verb:
-        ##Row 1: Type: Literal or Nonliteral
-        ##Row 2: Mismatched argument, if one exists
+        ## Inter-Annotator Agreement
         verbentities = zip(shared1, shared2, shared3)
         tupls = []
         index = 0
@@ -91,20 +101,25 @@ def XMLParse(a1,a2,a3):
                 type1 = e[0].attrib['type']
                 type2 = e[1].attrib['type']
                 type3 = e[2].attrib['type']
-                tupls.extend( [ ('a1', frozenset([type1]), frozenset([verb]) ),  ('a2', frozenset([type2]), frozenset([verb]) ), ('a3', frozenset([type3]), frozenset([verb]) )])
+                tupls.extend( [ ('a1', frozenset([verb]),frozenset([type1])),  ('a2', frozenset([verb]),frozenset([type2])), ('a3', frozenset([verb]),frozenset([type3]))])
                 writer.writerow( (e[0].attrib['text'],e[0].attrib['type'],e[1].attrib['type'],e[2].attrib['type'] ) )
                 if type1=='Nonliteral' and type2=='Nonliteral'and type3=='Nonliteral':
                     mismatch1 = [x.attrib['fromText'] for x in mismatches1 if x.attrib['toID']== e[0].attrib['id']]
                     mismatch2 = [x.attrib['fromText'] for x in mismatches2 if x.attrib['toID'] == e[1].attrib['id']]
                     mismatch3 = [x.attrib['fromText'] for x in mismatches3 if x.attrib['toID'] == e[2].attrib['id']]
-                    tupls.extend([('a1', frozenset(mismatch1), frozenset([index])),('a2', frozenset(mismatch2), frozenset([index])),('a3', frozenset(mismatch3), frozenset([index]))])
+                    tupls.extend([('a1', frozenset([index]),frozenset(mismatch1)),('a2', frozenset([index]),frozenset(mismatch2)),('a3', frozenset([index]), frozenset(mismatch3))])
                     index +=1
                     writer.writerow( (e[0].attrib['text'], mismatch1, mismatch2, mismatch3))
         f.close()
         ### Calculating IAA
-        t = agreement.AnnotationTask(data=tupls,distance=binary_distance)
+        t = agreement.AnnotationTask(data=tupls,distance=masi_distance)
+        print("\nAnnotation Statistics")
+        print("Literal tags: %d" %(literal))
+        print("Nonliteral tags: %d\n" % (nonliteral))
+        print("Agreement")
+        print("Observed Agreement: %.2f" %(t.avg_Ao()))
         print("Alpha: %.2f" % (t.alpha()))
-
+        print("S measure: %.2f" %(t.S()))
 
 
 if __name__ == "__main__":
