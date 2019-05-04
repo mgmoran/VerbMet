@@ -1,143 +1,87 @@
 Verb,Annotator 1,Annotator 2,Annotator 3
 declined,Nonliteral,Nonliteral,Literal
-declined,"['revenue', 'to $ 3 billion', 'from $ 3.2 billion']",['revenue'],[]
 studied,Literal,Literal,Literal
-studied,[],[],[]
 led,Literal,Literal,Literal
-led,[],[],[]
 imposed,Literal,Nonliteral,Literal
-imposed,[],['the Environmental Protection Agency'],[]
 sweeping,Nonliteral,Nonliteral,Nonliteral
 sweeping,"['stadium craze', 'the country']",['A stadium craze'],"['the country', 'A stadium craze']"
 claim,Literal,Literal,Literal
-claim,[],[],[]
 scoffs,Literal,Literal,Literal
-scoffs,[],[],[]
 rejected,Literal,Literal,Literal
-rejected,[],[],[]
 turned,Literal,Literal,Literal
-turned,[],[],[]
 justified,Literal,Literal,Literal
-justified,[],[],[]
 moved,Nonliteral,Nonliteral,Nonliteral
 moved,['civilization'],['civilization'],['civilization']
 went,Literal,Literal,Literal
-went,[],[],[]
 snapped,Literal,Literal,Nonliteral
-snapped,[],[],['mortgage-backed securities mutual fund']
 put,Literal,Literal,Literal
-put,[],[],[]
 assembled,Nonliteral,Nonliteral,Nonliteral
 assembled,['funds'],['The latest two funds'],['The latest two funds']
 join,Literal,Literal,Literal
-join,[],[],['the board']
 traded,Literal,Literal,Literal
-traded,[],[],[]
 took,Literal,Literal,Literal
-took,[],[],[]
 taken,Nonliteral,Nonliteral,Nonliteral
 taken,['Program trading'],['Program trading'],['Program trading']
 tightened,Literal,Literal,Nonliteral
-tightened,[],[],['controls']
 reaped,Nonliteral,Nonliteral,Nonliteral
 reaped,"['Some U.S. firms', 'a hefty chunk of their Japanese earnings', 'from index arbitrage']",['Some U.S. firms'],['a hefty chunk of their Japanese earnings']
 scrutinizing,Literal,Literal,Nonliteral
-scrutinizing,[],[],['program trades']
 serves,Nonliteral,Nonliteral,Nonliteral
 serves,['London'],['London'],['London']
 traded,Literal,Literal,Literal
-traded,[],[],[]
 traded,Literal,Literal,Literal
-traded,[],[],[]
 gained,Literal,Nonliteral,Literal
-gained,[],['Both contracts'],[]
 identified,Literal,Literal,Literal
-identified,[],[],[]
 Buy,Literal,Literal,Literal
-Buy,[],[],[]
 Take,Literal,Literal,Nonliteral
-Take,[],[],['a Hawaiian vacation']
 Send,Literal,Literal,Literal
-Send,[],[],[]
 Buy,Literal,Literal,Literal
-Buy,[],[],[]
 Make,Literal,Literal,Literal
-Make,[],[],[]
 helping,Literal,Literal,Literal
-helping,[],[],[]
 paint,Literal,Literal,Literal
-paint,[],[],[]
 spackle,Literal,Literal,Literal
-spackle,[],[],[]
 stayed,Literal,Literal,Nonliteral
-stayed,[],[],"['strong', 'Consumer confidence']"
 ranged,Literal,Literal,Literal
-ranged,[],[],[]
 increased,Literal,Literal,Literal
-increased,[],[],[]
 ranged,Literal,Literal,Literal
-ranged,[],[],[]
 rose,Nonliteral,Nonliteral,Nonliteral
 rose,"['stocks', '10 %']",['Payouts on the S&P 500 stocks'],['the S&P 500 stocks']
 slid,Nonliteral,Nonliteral,Nonliteral
 slid,"[""the market 's dividend yield""]","[""the market 's dividend yield""]","[""the market 's dividend yield""]"
 keeping,Literal,Literal,Nonliteral
-keeping,[],[],['a close watch']
 tanked,Nonliteral,Nonliteral,Literal
-tanked,['the market'],['the market'],[]
 dropped,Nonliteral,Nonliteral,Nonliteral
 dropped,"['the S&P 500 yield', 'below 3 %']",['the S&P 500 yield'],['the S&P 500 yield']
 say,Literal,Literal,Literal
-say,[],[],[]
 look,Literal,Literal,Literal
-look,[],[],[]
 happen,Literal,Literal,Literal
-happen,[],[],[]
 expected,Literal,Literal,Literal
-expected,[],[],[]
 measure,Literal,Nonliteral,Nonliteral
-measure,[],['the S&P tally'],['the S&P tally']
 indicated,Literal,Literal,Literal
-indicated,[],[],[]
 totaled,Literal,Literal,Literal
-totaled,[],[],[]
 compares,Literal,Literal,Literal
-compares,[],[],[]
 rose,Nonliteral,Nonliteral,Nonliteral
 rose,"['Sales', '4 %', 'to $ 3.28 billion', 'from $ 3.16 billion']",['Sales'],['Sales']
 soared,Nonliteral,Nonliteral,Nonliteral
 soared,"['pretax electronics earnings', '12 % ', 'to $ 107.9 million', 'from $ 96.4 million']",['pretax electronics earnings'],['pretax electronics earnings']
 took,Literal,Nonliteral,Nonliteral
-took,[],[],['The company']
 posted,Nonliteral,Nonliteral,Literal
-posted,['net of $ 734.9 million'],['the company'],[]
 rose,Nonliteral,Nonliteral,Nonliteral
 rose,"['Sales', '5 %', 'to $ 12.52 billion', 'from $ 11.95 billion']",['Sales'],['Sales']
 quoted,Literal,Literal,Literal
-quoted,"['Sterling', 'at $ 1.5755']",[],[]
 opened,Nonliteral,Nonliteral,Nonliteral
 opened,['the U.S. currency'],['the U.S. currency'],['the U.S. currency']
 cites,Literal,Literal,Literal
-cites,[],[],[]
 settled,Literal,Literal,Literal
-settled,[],[],[]
 quoted,Nonliteral,Literal,Literal
-quoted,"['gold', 'at $ 374.19 *U* an ounce']",[],[]
 sells,Literal,Literal,Literal
-sells,[],[],[]
 completed,Literal,Literal,Literal
-completed,[],[],[]
 runs,Nonliteral,Nonliteral,Nonliteral
 runs,['May Stores'],['May Stores'],['May Stores']
 reacted,Literal,Literal,Literal
-reacted,[],['Wall Street'],[]
 fallen,Nonliteral,Literal,Nonliteral
-fallen,"['Growth', 'short of targets']",[],['Growth']
 hurt,Nonliteral,Nonliteral,Nonliteral
 hurt,"[""Campbell 's Italian biscuit operation"", 'by overproduction and distribution problems']","[""Campbell 's Italian biscuit operation , D. Lazzaroni & Co. ""]","["" Campbell 's Italian biscuit operation""]"
 set,Literal,Literal,Literal
-set,[],[],[]
 took,Literal,Literal,Literal
-took,[],[],[]
 took,Literal,Literal,Nonliteral
-took,[],[],['refuge']
