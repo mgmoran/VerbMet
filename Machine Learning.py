@@ -64,5 +64,5 @@ if __name__ == "__main__":
     print(number)
     for sentence in sentences:
         if sentence.starting <= number and sentence.ending >= number:
-            print(sentence.text)
+            print(sentence_trees[sentence.text])
 
