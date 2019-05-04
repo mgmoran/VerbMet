@@ -7,7 +7,7 @@ from nltk import agreement
 from nltk.metrics.agreement import AnnotationTask
 from nltk.metrics import interval_distance, binary_distance, masi_distance
 
-def XMLParse(a1,a2,a3):
+def AnnotationStats(a1,a2,a3):
         literal = 0
         nonliteral = 0
         exceptions = ["am", "are", "is", "were", "was", "been", "be", "being", "has", "have", "had", "do", "done", "compared", "aware","used","said", "overlap", "noted","think", "Performing","go","seems","uses","says","raising","appear","received","boost","reciting","reprove","responded","leave"]
@@ -120,7 +120,8 @@ def XMLParse(a1,a2,a3):
         print("Observed Agreement: %.2f" %(t.avg_Ao()))
         print("Alpha: %.2f" % (t.alpha()))
         print("S measure: %.2f" %(t.S()))
+        print("Pi: %.2f" %(t.pi()))
 
 
 if __name__ == "__main__":
-    XMLParse('Annotator1Final.xml','Annotator2Final.xml','Annotator3Final.xml')
+    AnnotationStats('Annotator1Final.xml','Annotator2Final.xml','Annotator3Final.xml')
