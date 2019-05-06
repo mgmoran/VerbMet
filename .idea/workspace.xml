@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="bf91bf2e-b8e3-443c-b4d9-004afae919b7" name="Default Changelist" comment="" />
+=======
+    <list default="true" id="bf91bf2e-b8e3-443c-b4d9-004afae919b7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+>>>>>>> 93f717b7580988583610f8b8fb8ed830692a6c2c
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,8 +113,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Machine Learning.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="42">
               <caret line="97" column="22" lean-forward="true" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
+=======
+            <state relative-caret-position="332">
+              <caret line="130" column="40" lean-forward="true" selection-end-line="130" selection-end-column="40" />
+>>>>>>> 93f717b7580988583610f8b8fb8ed830692a6c2c
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -1267,8 +1278,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Machine Learning.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="42">
           <caret line="97" column="22" lean-forward="true" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
+=======
+        <state relative-caret-position="332">
+          <caret line="130" column="40" lean-forward="true" selection-end-line="130" selection-end-column="40" />
+>>>>>>> 93f717b7580988583610f8b8fb8ed830692a6c2c
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
