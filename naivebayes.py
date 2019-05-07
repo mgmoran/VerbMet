@@ -15,6 +15,7 @@ sents = defaultdict(lambda : defaultdict())
 sentence_trees = defaultdict(lambda : Tree)
 verbdict = defaultdict(list)
 typedict = defaultdict(list)
+labeled_data = []
 
 
 def gettags(filename):
@@ -84,10 +85,6 @@ def create_feature_sets(v_objects):
     train_set, test_set = feature_sets[:splitpoint], feature_sets[splitpoint:]
     return train_set, test_set
 
-def dummy_feature_function(v_object):
-    # some function here, ideally that returns a boolean
-    return True
-
 def has_Proper_subject(v_object):
     if v_object.arg0 is not None:
         return v_object.arg0[0].isupper()
@@ -97,7 +94,6 @@ def has_Proper_subject(v_object):
 def feature_dict(v_object):
     featureset = {}
     featureset['proper_subject'] = has_Proper_subject(v_object)
-    featureset['verb'] = v_object.verb_string
     featureset['has_arg2'] = (v_object.arg2 is not None)
     most_likely_mismatch = 'Subject'
     try:
@@ -117,21 +113,40 @@ def train_classifier(training_set):
     return classifier
 
 def evaluate_classifier(classifier, test_set):
-    print(nltk.classify.accuracy(classifier, test_set))
-
-
-def classify_verbs(v_objects, classifier):
-    features = [feature_dict(v_object) for v_object in v_objects]
-    label_list = []
-    for feat in features:
-        label_list.append(classifier.classify(feat))
-    met_count = label_list.count('nonliteral')
-    return met_count/len(label_list)
+    trueliteral = len([verb for verb in test_set if verb[1]=='Literal'])
+    truenonliteral = len([verb for verb in test_set if verb[1]=='Nonliteral'])
+    falseliteral = 0
+    falsenonliteral = 0
+    for verb in test_set:
+        verbobject = v_objects[test_set.index(verb)]
+        answer = classify_verb(verbobject,classifier)
+        if answer == 'Nonliteral':
+            if answer==verb[1]:
+                truenonliteral +=1
+            else:
+                falsenonliteral +=1
+        else:
+            if answer==verb[1]:
+                trueliteral +=1
+            else:
+                falseliteral +=1
+    lprecision = (trueliteral/ (trueliteral + falseliteral))
+    nprecision = (truenonliteral/ (truenonliteral + falsenonliteral))
+    lrecall = trueliteral / (trueliteral + falsenonliteral)
+    nrecall = (truenonliteral / (truenonliteral + falseliteral))
+    lf1 = (2 * lprecision * lrecall)/ (lprecision + lrecall)
+    nf1 = (2 * nprecision * nrecall)/(nprecision + nrecall)
+    print("\t\t\tPrecision\t\tRecall\t\tF1")
+    print("Literal\t\t%.2f\t\t%.2f\t\t %.2f" %(lprecision,lrecall,lf1))
+    print("Nonliteral\t%.2f\t\t%.2f\t\t %.2f" % (nprecision, nrecall, nf1))
+    print()
+    print("Accuracy: %.2f" %(nltk.classify.accuracy(classifier, test_set)))
 
 
 def classify_verb(v_object, classifier):
     feat_set = feature_dict(v_object)
     return classifier.classify(feat_set)
+
 
 
 if __name__ == '__main__':
@@ -144,4 +159,4 @@ if __name__ == '__main__':
     training_set, test_set = create_feature_sets(v_objects)
     classifier = train_classifier(training_set)
     evaluate_classifier(classifier, test_set)
-    classifier.show_most_informative_features()
+    #classifier.show_most_informative_features()
