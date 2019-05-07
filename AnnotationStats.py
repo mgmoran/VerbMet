@@ -104,7 +104,7 @@ def AnnotationStats(a1,a2,a3):
                 tupls.extend( [ ('a1', frozenset([verb]),frozenset([type1])),  ('a2', frozenset([verb]),frozenset([type2])), ('a3', frozenset([verb]),frozenset([type3]))])
                 writer.writerow( (e[0].attrib['text'],e[0].attrib['type'],e[1].attrib['type'],e[2].attrib['type'] ) )
                 if type1=='Nonliteral' and type2=='Nonliteral'and type3=='Nonliteral':
-                    mismatch1 = [x.attrib['fromText'] for x in mismatches1 if x.attrib['toID']== e[0].attrib['id']]
+                    mismatch1 = [(x.attrib['fromText'] for x in mismatches1 if x.attrib['toID']== e[0].attrib['id']]
                     mismatch2 = [x.attrib['fromText'] for x in mismatches2 if x.attrib['toID'] == e[1].attrib['id']]
                     mismatch3 = [x.attrib['fromText'] for x in mismatches3 if x.attrib['toID'] == e[2].attrib['id']]
                     tupls.extend([('a1', frozenset([index]),frozenset(mismatch1)),('a2', frozenset([index]),frozenset(mismatch2)),('a3', frozenset([index]), frozenset(mismatch3))])

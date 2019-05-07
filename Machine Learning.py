@@ -10,7 +10,8 @@ from nltk.corpus import propbank
 google_dict = defaultdict()
 literal_non_literal_vects = defaultdict()
 non_literal_vects = defaultdict()
-annotated_data = defaultdict(dict)
+annotated_data = defaultdict(lambda: defaultdict())
+verbdict = defaultdict(lambda: defaultdict(int))
 
 # A dictionary of dictionaries where the first key is the document name, the second key is the sentence index, and
 # the value is the sentence itself
@@ -73,7 +74,15 @@ def gettags(filename):
                 type = verb.attrib['type']
                 mm = [m.attrib['fromText'] for m in mismatches if
                       'toID' in m.attrib and int(m.attrib['toID'][1:]) == int(verb.attrib['id'][1:])]
-                annotated_data[sentence.text][v] = (type, mm)
+                arguments = list(
+                    set([(arg.attrib['text'], arg.attrib['type']) for arg in args if arg.attrib['text'] in mm]))
+                annotated_data[sentence.text][v] = (type, arguments)
+    for sentence in annotated_data:
+        for v in annotated_data[sentence]:
+            if annotated_data[sentence][v][0] == 'Nonliteral':
+                for arg in [arg[1] for arg in annotated_data[sentence][v][1]]:
+                    verbdict[v][arg] += 1
+
 
 def read_in_google_vectors():
     google_list = []
@@ -90,8 +99,6 @@ def read_in_google_vectors():
     google_vect = np.array(google_list)
     return google_vect
 
-    # Here a for-loop will be used to get the sentences containing each annotated verb, right now
-    # it just prints out the starting index of the first verb and the sentence that it is in
 def create_sentence_vectors(google_vect):
     for sentence in annotated_data:
         sentence_vector = np.zeros(3)
