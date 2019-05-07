@@ -18,6 +18,7 @@ class VerbMetClass:
         self.arg1 = None
         self.arg2 = None
         self.rs_arg0 = None
+        self.rs_arg1 = None
 
         if pb_inst.roleset[-1:].isnumeric():
             self.rs = propbank.roleset(pb_inst.roleset)
@@ -55,8 +56,14 @@ class VerbMetClass:
         for role in self.rs.findall('roles/role'):
             if role.attrib['n'][0] == '0':
                 self.rs_arg0 = role.attrib['descr'].split()[0]
+            if role.attrib['n'][0]== '1':
+                self.rs_arg1 = role.attrib['descr'].split()[0]
 
-
+    def toString(self):
+        print("Verb: " + repr(self.verb_string))
+        print("Arg0: " + repr(self.arg0))
+        print("Arg1: " + repr(self.arg1))
+        print("Label: " + self.label)
 
 
 

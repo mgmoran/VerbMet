@@ -1,5 +1,6 @@
 import nltk
-from VerbMet.verbmetclass import VerbMetClass
+import verbmetclass
+from verbmetclass import VerbMetClass
 from nltk.corpus import propbank
 from nltk.corpus import wordnet as wn
 from xml.etree import ElementTree
@@ -12,6 +13,8 @@ annotations = defaultdict(dict)
 sentence_span = defaultdict(dict)
 sents = defaultdict(lambda : defaultdict())
 sentence_trees = defaultdict(lambda : Tree)
+verbdict = defaultdict(list)
+typedict = defaultdict(list)
 
 
 def gettags(filename):
@@ -38,8 +41,13 @@ def gettags(filename):
                 type = verb.attrib['type']
                 mm = [m.attrib['fromText'] for m in mismatches if
                       'toID' in m.attrib and int(m.attrib['toID'][1:]) == int(verb.attrib['id'][1:])]
-                annotations[sentence[0]] = (v, type, mm)
-
+                arguments = list(
+                    set([(arg.attrib['text'], arg.attrib['type']) for arg in args if arg.attrib['text'] in mm]))
+                annotations[sentence[0]] = (v,type, arguments)
+    for sentence in annotations:
+        if annotations[sentence][1] == 'Nonliteral':
+            for arg in annotations[sentence][2]:
+                    verbdict[annotations[sentence][0]].append(arg[1])
 
 def create_verbmet_objects():
     verbmet_objects = []
@@ -88,17 +96,20 @@ def has_Proper_subject(v_object):
 
 def feature_dict(v_object):
     featureset = {}
-    #featureset['dummy_feature'] = dummy_feature_function(v_object)
     featureset['proper_subject'] = has_Proper_subject(v_object)
     featureset['verb'] = v_object.verb_string
-    featureset['has_arg0'] = (v_object.arg0 is not None)
-    featureset['has_arg1'] = (v_object.arg1 is not None)
     featureset['has_arg2'] = (v_object.arg2 is not None)
-    featureset['arg0'] = v_object.arg0
-    featureset['arg1'] = v_object.arg1
-    featureset['arg2'] = v_object.arg2
-    featureset['roleset_arg0'] = v_object.rs_arg0
-
+    most_likely_mismatch = 'Subject'
+    try:
+        most_likely_mismatch = verbdict[v_object.verb_string][0]
+    except IndexError:
+        most_likely_mismatch=='Subject'
+    if most_likely_mismatch == 'Subject':
+        featureset['has_arg0'] = (v_object.arg0 is not None)
+        featureset['roleset_arg0'] = v_object.rs_arg0
+    if most_likely_mismatch =='Object':
+        featureset['has_arg1'] = (v_object.arg1 is not None)
+        featureset['roleset_arg1'] = v_object.rs_arg1
     return featureset
 
 def train_classifier(training_set):
@@ -124,12 +135,11 @@ def classify_verb(v_object, classifier):
 
 
 if __name__ == '__main__':
-
     gettags('Annotator1Final.xml')
     gettags('Annotator2Final.xml')
     gettags('Annotator3Final.xml')
-
-
+    for verb in verbdict:
+        verbdict[verb] = sorted([arg for arg in verbdict[verb]], key=lambda arg:verbdict[verb].count(arg))
     v_objects = create_verbmet_objects()
     training_set, test_set = create_feature_sets(v_objects)
     classifier = train_classifier(training_set)
