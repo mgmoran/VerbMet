@@ -5,11 +5,11 @@ VerbMet is intended to be a general resource for the identification and parsing 
 
 When an intransitive verb is used metaphorically, we almost always see a subject-verb mismatch:
 
-*Evening fell.
+*Evening fell.*
 
 But we may also see mismatches between verb and adjuncts: 
 
-*We were swimming in cash.
+*We were swimming in cash.*
 
 For transitive verbs, there are more possibilities. There might be a mismatch of subject and verb: 
 
@@ -17,11 +17,11 @@ For transitive verbs, there are more possibilities. There might be a mismatch of
 
 Or there might be a mismatch of verb and object: 
 
-*‘Tis the season to spread cheer.
+*‘Tis the season to spread cheer.*
 
 Or it might be one of any possible adjuncts: 
 
-*She carried me to safety.
+*She carried me to safety.*
 
 Clearly the locus of semantic mismatch varies; in fact, we believe that it varies *systematically* depending upon the verb. 
 
